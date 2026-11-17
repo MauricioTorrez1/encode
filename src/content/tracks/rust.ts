@@ -208,10 +208,10 @@ export default track('rust', 'rust', [
             consumir(texto);
         }`, 8, 'Al pasar `texto` por valor la propiedad se mueve a la función; la segunda llamada usa un valor ya movido.'),
       match('Empareja cada tipo con su comportamiento al asignar', [
-        ['`i32`', 'Se copia (Copy)'],
-        ['`String`', 'Se mueve'],
-        ['`Vec<i32>`', 'Se mueve'],
-        ['`bool`', 'Se copia (Copy)'],
+        ['`i32`', 'Se copia al asignar: el original sigue siendo válido'],
+        ['`String`', 'Se mueve: el original deja de ser válido'],
+        ['`Vec<i32>`', 'Se mueve y libera su buffer del heap al salir de ámbito'],
+        ['`bool`', 'Tipo simple del stack que implementa `Copy`'],
       ]),
       predict(`
         fn tomar_y_devolver(s: String) -> String {
