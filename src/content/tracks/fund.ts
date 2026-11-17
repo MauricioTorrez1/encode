@@ -922,7 +922,7 @@ print(total)`, '2000', 'El candado protege `total += 1`, que no es atómico.')),
       | \`* + ?\` | 0 o más, 1 o más, 0 o 1 |
       | \`{3}\` \`{2,4}\` | repeticiones exactas / rango |
       | \`^\` \`$\` | inicio / fin |
-      | \`( )\` \`|\` | grupo / alternativa |
+      | \`( )\` y \`a\\|b\` | grupo / alternativa |
 
       \`\`\`
       import re
