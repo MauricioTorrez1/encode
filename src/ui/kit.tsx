@@ -172,6 +172,20 @@ export function Md({ text, lang }: { text: string; lang?: Lang }) {
       const buf: string[] = []
       while (i < lines.length && lines[i].startsWith('> ')) buf.push(lines[i++].slice(2))
       blocks.push(<div key={k++} className="md-note"><Icon name="bulb" size={18} /><p>{inline(buf.join(' '))}</p></div>)
+    } else if (line.startsWith('|')) {
+      const rows: string[][] = []
+      while (i < lines.length && lines[i].startsWith('|')) {
+        if (!/^\|[\s|:-]+\|?$/.test(lines[i])) rows.push(lines[i].replace(/^\||\|$/g, '').split(/(?<!\\)\|/).map((c) => c.trim().replace(/\\\|/g, '|')))
+        i++
+      }
+      blocks.push(
+        <div key={k++} className="md-table-wrap">
+          <table className="md-table">
+            <thead><tr>{rows[0].map((c, j) => <th key={j}>{inline(c)}</th>)}</tr></thead>
+            <tbody>{rows.slice(1).map((r, j) => <tr key={j}>{r.map((c, n) => <td key={n}>{inline(c)}</td>)}</tr>)}</tbody>
+          </table>
+        </div>,
+      )
     } else if (/^[-*] /.test(line)) {
       const items: string[] = []
       while (i < lines.length && /^[-*] /.test(lines[i])) items.push(lines[i++].slice(2))
@@ -180,7 +194,7 @@ export function Md({ text, lang }: { text: string; lang?: Lang }) {
       i++
     } else {
       const buf: string[] = []
-      while (i < lines.length && lines[i].trim() && !/^(```|#+ |> |[-*] )/.test(lines[i])) buf.push(lines[i++])
+      while (i < lines.length && lines[i].trim() && !/^(```|#+ |> |[-*] |\|)/.test(lines[i])) buf.push(lines[i++])
       blocks.push(<p key={k++}>{inline(buf.join(' '))}</p>)
     }
   }
