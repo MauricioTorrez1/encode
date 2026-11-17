@@ -273,14 +273,14 @@ State {
 
 ## 12. Fases de ejecución
 
-- [ ] **F0** Plan (este documento)
-- [ ] **F1** Andamiaje: Vite, TypeScript, tokens de diseño, router, PWA
-- [ ] **F2** Motor: store, XP, racha, SRS, misiones, logros, corrección + tests
-- [ ] **F3** Reproductor de sesiones y los 13 tipos de ejercicio
-- [ ] **F4** Pantallas: onboarding, Hoy, rutas, mapa, entrenar, tienda, perfil
-- [ ] **F5** Ejecución de código: Pyodide + runners remotos + editor
-- [ ] **F6** Simulador de git con grafo
-- [ ] **F7** Contenido de las 9 rutas
-- [ ] **F8** Gimnasio procedural, katas, Rosetta, mecanografía
-- [ ] **F9** Verificación del contenido con toolchains, tests, prueba de humo
-- [ ] **F10** README, CI y despliegue
+- [x] **F0** Plan (este documento)
+- [x] **F1** Andamiaje: Vite, TypeScript, tokens de diseño, router, PWA
+- [x] **F2** Motor: store, XP, racha, SRS, misiones, logros, corrección + tests
+- [x] **F3** Reproductor de sesiones y los 13 tipos de ejercicio
+- [x] **F4** Pantallas: onboarding, Hoy, rutas, mapa, entrenar, tienda, perfil
+- [x] **F5** Ejecución de código: Pyodide + runners remotos + editor
+- [x] **F6** Simulador de git con grafo
+- [x] **F7** Contenido de las 9 rutas
+- [x] **F8** Gimnasio procedural, katas, Rosetta, mecanografía
+- [x] **F9** Verificación del contenido con toolchains, tests, prueba de humo
+- [x] **F10** README, CI y despliegue

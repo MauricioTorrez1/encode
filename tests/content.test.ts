@@ -14,6 +14,7 @@ import sistemas from '../src/content/tracks/sistemas'
 import type { Ex } from '../src/content/types'
 import { scenario } from '../src/git/engine'
 import { ALT } from '../src/runners/wrap'
+import { grade, type Answer } from '../src/engine/check'
 
 const tracks = [fund, python, java, go, rust, git, redes, sistemas, ingles]
 const content = indexContent(tracks)
@@ -83,4 +84,31 @@ describe('retos del simulador de git', () => {
       expect(ex.check(g), `la solución no cumple el reto. Salidas:\n${outs.join('\n---\n')}`).toBe(true)
     })
   }
+})
+
+describe('la respuesta correcta de cada ejercicio es aceptada por el corrector', () => {
+  const correct = (ex: Ex): Answer | undefined => {
+    switch (ex.t) {
+      case 'mc': return ex.ans
+      case 'bug': return ex.line
+      case 'predict': return ex.out
+      case 'fill': return ex.ans.map((a) => a.split(ALT)[0])
+      case 'parsons': return ex.lines
+      case 'order': return ex.items
+      case 'ask': return ex.ans[0]
+      case 'num': return ex.ans
+      case 'words': return ex.ans.split(' ')
+      case 'listen': return ex.text
+      default: return undefined
+    }
+  }
+  for (const { ex } of all) {
+    const a = correct(ex)
+    if (a === undefined) continue
+    it(ex.id, () => expect(grade(ex, a)).toBe(true))
+  }
+  it('las respuestas incorrectas típicas se rechazan', () => {
+    const mcs = all.map((x) => x.ex).filter((e) => e.t === 'mc')
+    for (const e of mcs) if (e.t === 'mc') expect(grade(e, (e.ans + 1) % e.opts.length)).toBe(false)
+  })
 })

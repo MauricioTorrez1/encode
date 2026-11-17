@@ -64,7 +64,8 @@ export function GitTerminal({ sim, onRun, disabled, autoFocus }: { sim: GitSim; 
     cursor.current = history.current.length
     setValue('')
     if (cmd === 'clear') { setLog([]); return }
-    setLog((l) => [...l, { cmd, out: sim.run(cmd) }])
+    const out = sim.run(cmd)          // fuera del actualizador: debe ejecutarse una sola vez y antes de comprobar el reto
+    setLog((l) => [...l, { cmd, out }])
     force((n) => n + 1)
     onRun?.()
   }
