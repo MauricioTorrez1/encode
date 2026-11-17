@@ -100,6 +100,18 @@ await start('s/lesson/en-be')
 await page.fill('.blank', "am"); await page.keyboard.press('Enter')
 check(await page.locator('.session-foot.ok').count() > 0, 'hueco de inglés aceptado')
 
+// ── Jefe de unidad: sin aciertos no se supera; el mapa sigue bloqueado ──
+await go('s/boss/py1')
+await page.waitForSelector('.q')
+for (let i = 0; i < 10; i++) {
+  await page.getByRole('button', { name: /^(No lo sé|Saltar)$/ }).first().click()
+  await page.locator('.session-foot .key-bad, .session-foot .key-ok').first().click()
+}
+await page.waitForSelector('.summary')
+check((await stat('.summary h1')).includes('Casi lo tienes'), 'un jefe con 0 % no se supera')
+await shot('boss-fail')
+await leave()
+
 // ── Gimnasio y reto diario ──
 await go('s/drill/bin')
 check(await page.locator('.q').count() > 0, 'ronda de gimnasio carga ejercicios')
